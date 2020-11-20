@@ -48,6 +48,34 @@ public class MenuAnimations : MonoBehaviour
         animator.SetTrigger("BackScreen");
     }
 
+    public void GameAbout()
+    {
+        Debug.Log("This is leaveing the menu");
+        animator.SetTrigger("AboutStart");
+        animator.SetTrigger("LeaveOptions");
+    }
+
+    public void LeaveAbout()
+    {
+        Debug.Log("This is leaveing the menu");
+        animator.SetTrigger("AboutLeave");
+        animator.SetTrigger("OptionsMenu");
+    }
+
+    public void OptionsMenu()
+    {
+        Debug.Log("This is leaveing the menu");
+        animator.SetTrigger("BackScreen");
+        animator.SetTrigger("OptionsMenu");
+    }
+
+    public void LeaveOptions()
+    {
+        Debug.Log("This is leaveing the menu");
+        animator.SetTrigger("LeaveOptions");
+        animator.SetTrigger("NextScreen");
+    }
+
     public void QuitGame()
     {
         Debug.Log("The Game Has quit");

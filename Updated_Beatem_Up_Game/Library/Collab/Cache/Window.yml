@@ -14,19 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
+    - Assets/Animations/Menu Animations/AboutAnimation.anim
+    - Assets/Animations/Menu Animations/AboutAnimation.anim.meta
+    - Assets/Animations/Menu Animations/LeaveAbout.anim
+    - Assets/Animations/Menu Animations/LeaveAbout.anim.meta
+    - Assets/Animations/Menu Animations/LeaveOptions.anim
+    - Assets/Animations/Menu Animations/LeaveOptions.anim.meta
     - Assets/Animations/Menu Animations/Menu.controller
+    - Assets/Animations/Menu Animations/OptionAnimations.anim
+    - Assets/Animations/Menu Animations/OptionAnimations.anim.meta
     - Assets/Animations/Menu Animations/Reseting SetUp.anim
-    - Assets/Animations/Menu Animations/Reseting SetUp.anim.meta
     - Assets/Animations/Menu Animations/Setting Game Up.anim
-    - Assets/Animations/Menu Animations/Setting Game Up.anim.meta
-    - Assets/Scenes/Game.unity
-    - Assets/Scenes/Game.unity.meta
     - Assets/Scenes/MainMenu.unity
     - Assets/Scripts/Menu/MenuAnimations.cs
-    - Assets/Scripts/Menu/MenuAnimations.cs.meta
-    - ProjectSettings/EditorBuildSettings.asset
+    - ProjectSettings/ProjectVersion.txt
     - 
-    m_Values: 000000000000000000000000
+    m_Values: 000000000000000000000000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 
