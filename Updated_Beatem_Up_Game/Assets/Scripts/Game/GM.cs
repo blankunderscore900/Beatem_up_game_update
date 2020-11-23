@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GM : MonoBehaviour
 {
@@ -16,7 +18,10 @@ public class GM : MonoBehaviour
     [Header("Game Menus")]
     public GameObject Menu;
     public GameObject Pause;
-    public static bool gameIsPaused;
+    public bool gameIsPaused;
+    private Animator animator;
+    public GameObject PauseButton, OptionsButton;
+
 
     // instance
     public static GM instance;
@@ -29,7 +34,7 @@ public class GM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -37,19 +42,21 @@ public class GM : MonoBehaviour
     {
         if (Input.GetKeyDown("escape"))
         {
-            gameIsPaused = !gameIsPaused;
             PauseGame();
         }
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
+        gameIsPaused = !gameIsPaused;
         // Pause the game to bring up the pause menu
         if (gameIsPaused)
         {
             Time.timeScale = 0f;
             Menu.SetActive(false);
             Pause.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(PauseButton);
         }
         else
         {
@@ -57,5 +64,14 @@ public class GM : MonoBehaviour
             Menu.SetActive(true);
             Pause.SetActive(false);
         }
+    }
+
+    public void MenuScreen()
+    {
+        Time.timeScale = 1f;
+        // loads the game scene
+        SceneManager.LoadScene("MainMenu");
+
+
     }
 }

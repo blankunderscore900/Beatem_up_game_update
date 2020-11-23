@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MenuAnimations : MonoBehaviour
 {
 
     private Animator animator;
 
+    public GameObject MenuFirstButton, SetUpExit, OptionsExit, PlayerOneButton, OptionsFirstButton, AboutFirstButton, AboutExit;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -24,6 +28,9 @@ public class MenuAnimations : MonoBehaviour
         // Plays the animation for opening to the start menu of the game
         Debug.Log("this is working");
         animator.SetTrigger("NextScreen");
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(MenuFirstButton);
+
     }
     public void SetUpGame()
     {
@@ -31,6 +38,8 @@ public class MenuAnimations : MonoBehaviour
         // of the game and load the start game menu
         animator.SetTrigger("BackScreen");
         animator.SetTrigger("StartingGame");
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(PlayerOneButton);
     }
 
     public void LeaveSetUp()
@@ -39,6 +48,8 @@ public class MenuAnimations : MonoBehaviour
         // and load the animation for the start menu
         animator.SetTrigger("ResetGame");
         animator.SetTrigger("NextScreen");
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(SetUpExit);
     }
 
     public void StartGame()
@@ -51,7 +62,7 @@ public class MenuAnimations : MonoBehaviour
     {
         // Plays the animation for leaving the start menu
         Debug.Log("This is leaveing the menu");
-        animator.SetTrigger("BackScreen");
+        animator.SetTrigger("BackScreen");  
     }
 
     public void GameAbout()
@@ -61,6 +72,8 @@ public class MenuAnimations : MonoBehaviour
         Debug.Log("This is leaveing the menu");
         animator.SetTrigger("AboutStart");
         animator.SetTrigger("LeaveOptions");
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(AboutFirstButton);
     }
 
     public void LeaveAbout()
@@ -70,6 +83,8 @@ public class MenuAnimations : MonoBehaviour
         Debug.Log("This is leaveing the menu");
         animator.SetTrigger("AboutLeave");
         animator.SetTrigger("OptionsMenu");
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(AboutExit);
     }
 
     public void OptionsMenu()
@@ -79,6 +94,8 @@ public class MenuAnimations : MonoBehaviour
         Debug.Log("This is leaveing the menu");
         animator.SetTrigger("BackScreen");
         animator.SetTrigger("OptionsMenu");
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(OptionsFirstButton);
     }
 
     public void LeaveOptions()
@@ -88,6 +105,8 @@ public class MenuAnimations : MonoBehaviour
         Debug.Log("This is leaveing the menu");
         animator.SetTrigger("LeaveOptions");
         animator.SetTrigger("NextScreen");
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(OptionsExit);
     }
 
     public void QuitGame()
