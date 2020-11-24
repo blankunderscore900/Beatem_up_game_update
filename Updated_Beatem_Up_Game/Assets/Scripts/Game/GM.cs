@@ -8,19 +8,22 @@ using UnityEngine.EventSystems;
 
 public class GM : MonoBehaviour
 {
-    // setting up and sorting the player's objects
-    [Header("Player Status")]
-    public float moveSpeed;
-    public int playerLife;
-    public TextMeshProUGUI gameTime;
+
+    [Header("Enemy Status")]
+    public float enemyMoveSpeed;
+    public int enemyLife;
+    public int enemyAttack;
 
     // setting up and sorting the Game menu objects
     [Header("Game Menus")]
     public GameObject Menu;
     public GameObject Pause;
+    public TextMeshProUGUI GameResults;
+    public TextMeshProUGUI gameTime;
+    public TextMeshProUGUI Lives;
     public bool gameIsPaused;
     private Animator animator;
-    public GameObject PauseButton, OptionsButton;
+    public GameObject PauseButton, OptionsButton, ExitAbout;
 
 
     // instance
