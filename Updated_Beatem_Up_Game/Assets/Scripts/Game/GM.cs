@@ -25,6 +25,9 @@ public class GM : MonoBehaviour
     private Animator animator;
     public GameObject PauseButton, OptionsButton, ExitAbout;
 
+    [Header("Player & Enemy")]
+    private Player player;
+
 
     // instance
     public static GM instance;
@@ -38,6 +41,11 @@ public class GM : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+
+        // grabbing the player object to be use at the start of the game
+        player = FindObjectOfType<Player>(); 
+        
+
     }
 
     // Update is called once per frame

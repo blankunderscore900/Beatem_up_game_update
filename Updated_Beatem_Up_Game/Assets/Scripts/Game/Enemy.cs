@@ -24,4 +24,9 @@ public class Enemy : MonoBehaviour
     {
         
     }
+
+    public void TookDamage(int damage)
+    {
+
+    }
 }
