@@ -14,23 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
-    - Assets/Animations/Player Animations.meta
-    - Assets/Animations/Player Animations/Idle.anim
-    - Assets/Animations/Player Animations/Idle.anim.meta
-    - Assets/Animations/Player Animations/Player.controller
-    - Assets/Animations/Player Animations/Player.controller.meta
     - Assets/Scenes/Game.unity
-    - Assets/Scripts/Game/Enemy.cs
-    - Assets/Scripts/Game/GM.cs
+    - Assets/Scripts/Game/CamFollow.cs
+    - Assets/Scripts/Game/CamFollow.cs.meta
     - Assets/Scripts/Game/Player.cs
-    - Assets/Sprites.meta
-    - Assets/Sprites/Square.png
-    - Assets/Sprites/Square.png.meta
-    - Packages/manifest.json
-    - Packages/packages-lock.json
-    - ProjectSettings/TagManager.asset
     - 
-    m_Values: 00000000000000000000000000000000
+    m_Values: 0000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 

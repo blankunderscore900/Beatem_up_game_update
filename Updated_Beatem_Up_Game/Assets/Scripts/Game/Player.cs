@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     // setting up and sorting the player's objects
     [Header("Player Status")]
+    [Tooltip("Adjust Player Speed")]
     public float playerMoveSpeed;
     public float jumpForce = 400;
     public float minHeight, maxHeight;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     private Transform groundCheck;
     private bool onGround;
     private bool jump = false;
+
     /*
     public AudioClip collisionSound, jumpSound, healthItem;
     public int currentHealth;
@@ -28,6 +30,8 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
     private AudioSource audioS;
     */
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +42,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         onGround = Physics.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
         
         if(Input.GetButtonDown("Jump") && onGround)
@@ -58,7 +63,14 @@ public class Player : MonoBehaviour
             Debug.Log("The jump is working");
             rb.AddForce(Vector3.up* jumpForce);
         }
+
+        float minWidth = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 10)).x;
+        float maxWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 10)).x;
+        rb.position = new Vector3(Mathf.Clamp(rb.position.x, minWidth + 1, maxWidth - 1), rb.position.y, Mathf.Clamp(rb.position.z, minHeight, maxHeight));
+
     }
+
+
 
     //Placing the health bar at the top of the menu
     private void PlayerHealthBar(float curHealth)
@@ -80,5 +92,6 @@ public class Player : MonoBehaviour
         }
         */
     }
+
 
 }
