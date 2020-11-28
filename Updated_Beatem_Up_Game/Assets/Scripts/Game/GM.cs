@@ -8,12 +8,6 @@ using UnityEngine.EventSystems;
 
 public class GM : MonoBehaviour
 {
-
-    [Header("Enemy Status")]
-    public float enemyMoveSpeed;
-    public int enemyLife;
-    public int enemyAttack;
-
     // setting up and sorting the Game menu objects
     [Header("Game Menus")]
     public GameObject Menu;

@@ -15,11 +15,12 @@ MonoBehaviour:
   SimpleSelectedItems:
     m_Keys:
     - Assets/Scenes/Game.unity
-    - Assets/Scripts/Game/CamFollow.cs
-    - Assets/Scripts/Game/CamFollow.cs.meta
+    - Assets/Scripts/Game/Enemy.cs
+    - Assets/Scripts/Game/GM.cs
     - Assets/Scripts/Game/Player.cs
+    - ProjectSettings/ProjectVersion.txt
     - 
-    m_Values: 0000000000
+    m_Values: 000000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 

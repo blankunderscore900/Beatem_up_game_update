@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float maxSpeed;
+    [Header("Enemy Status")]
+    public float enemyMoveSpeed;
+    public int enemyLife;
+    public int enemyAttack;
     public float minHeight, maxHight;
     public float damageTime = 0.5f;
     public int maxHealth;

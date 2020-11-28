@@ -8,15 +8,29 @@ public class Player : MonoBehaviour
     [Header("Player Status")]
     [Tooltip("Adjust Player Speed")]
     public float playerMoveSpeed;
+    [Tooltip("Adjust Player Jump Height")]
     public float jumpForce = 400;
+    [Tooltip("Adjust Player Distance from the top of the screen to bottom")]
     public float minHeight, maxHeight;
+    [Tooltip("Adjust how the Player has for life until dying")]
     public int playerLife = 10;
+    [Tooltip("checking if the player attack gameobejct can attack")]
+    public GameObject attacking;
+    [Tooltip("Set a name for the Player")]
     public string playerName;
+    [Tooltip("Setting a image to show what the player will look like")]
     public Sprite playerImage;
+    [Tooltip("Geting the rigidbody from the player")]
     private Rigidbody rb;
+    [Tooltip("Getting the groundcheck from the player")]
     private Transform groundCheck;
+    [Tooltip("Seeing if the player is on the ground")]
     private bool onGround;
+    [Tooltip("checking if the player can jump")]
     private bool jump = false;
+    [Tooltip("checking if the player can attack")]
+    private bool attack = false;
+    private bool facingRight = true;
 
     /*
     public AudioClip collisionSound, jumpSound, healthItem;
@@ -27,7 +41,6 @@ public class Player : MonoBehaviour
     private float currentSpeed;
     private Animator anim;
     private bool isDead = false;
-    private bool facingRight = true;
     private AudioSource audioS;
     */
 
@@ -49,6 +62,11 @@ public class Player : MonoBehaviour
         {
             jump = true;
         }
+
+        if (Input.GetKeyDown("mouse 0"))
+        {
+            attack = true;
+        }
     }
 
     void FixedUpdate()
@@ -64,10 +82,38 @@ public class Player : MonoBehaviour
             rb.AddForce(Vector3.up* jumpForce);
         }
 
+        if (xInput > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (xInput < 0 && facingRight)
+        {
+            Flip();
+        }
+
+        if (attack)
+        {
+            attack = false;
+            attacking.SetActive(true);
+        }
+        else
+        {
+            attacking.SetActive(false);
+        }
+
         float minWidth = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 10)).x;
         float maxWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 10)).x;
         rb.position = new Vector3(Mathf.Clamp(rb.position.x, minWidth + 1, maxWidth - 1), rb.position.y, Mathf.Clamp(rb.position.z, minHeight, maxHeight));
 
+    }
+
+    void Flip()
+    {
+        // fliping the player left or right to attack 
+        facingRight = !facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 
 
