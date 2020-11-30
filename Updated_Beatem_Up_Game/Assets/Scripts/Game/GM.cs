@@ -19,8 +19,19 @@ public class GM : MonoBehaviour
     private Animator animator;
     public GameObject PauseButton, OptionsButton, ExitAbout;
 
-    [Header("Player & Enemy")]
-    private Player player;
+    [Header("Player"), Tooltip("list of player objects")]
+    // player objects
+    public GameObject[] player;
+    public int PlayerLives;
+    [Header("Enemy")]
+    [Tooltip("list of enemy objects")]
+    // enemy objects
+    public GameObject[] enemy;
+    public float maxZ, minZ;
+    public int numberOfEnemies;
+    public float spawnTime;
+    public int waves;
+    private int currentEnemies;
 
 
     // instance
@@ -29,25 +40,34 @@ public class GM : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        Instantiate(player[PlayerLives], transform.position, transform.rotation);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        // grabbing the player object to be use at the start of the game
-        player = FindObjectOfType<Player>(); 
-        
+        //DontDestroyOnLoad(gameObject);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Pressing the escape key will pause the game
         if (Input.GetKeyDown("escape"))
         {
             PauseGame();
+        }
+
+        if(currentEnemies >= numberOfEnemies)
+        {
+            int enemies = FindObjectsOfType<Enemy>().Length;
+            if(enemies <= 0)
+            {
+                FindObjectOfType<CamFollow>().maxXAndY.x = 200;
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -78,5 +98,39 @@ public class GM : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
 
 
+    }
+
+    // ------------------------------------------------------------------------- SpawnEnemies objects
+
+    // spawnEnemies into the level to fight
+    void SpawnEnemy()
+    {
+        bool positionX = Random.Range(0, 2) == 0 ? true : false;
+        Vector3 spawnPosition;
+        spawnPosition.z = Random.Range(minZ, maxZ);
+        if (positionX)
+        {
+            spawnPosition = new Vector3(transform.position.x + 20, 0, spawnPosition.z);
+        }
+        else
+        {
+            spawnPosition = new Vector3(transform.position.x - 20, 0, spawnPosition.z);
+        }
+        Instantiate(enemy[Random.Range(0, enemy.Length)], spawnPosition, Quaternion.identity);
+        currentEnemies++;
+        if (currentEnemies < numberOfEnemies)
+        {
+            Invoke("SpawnEnemy", spawnTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            FindObjectOfType<CamFollow>().maxXAndY.x = transform.position.x;
+            SpawnEnemy();
+        }
     }
 }
