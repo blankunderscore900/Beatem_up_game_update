@@ -23,9 +23,23 @@ public class GM : MonoBehaviour
     // player objects
     public GameObject[] player;
     public int PlayerLives;
+    public Slider HealthUI;
+    public Image playerImage;
+    public TextMeshProUGUI playerName;
+    public TextMeshProUGUI livesText;
+    public TextMeshProUGUI disPlayMessage;
+    private Player playerUI;
+
+
     [Header("Enemy")]
     [Tooltip("list of enemy objects")]
     // enemy objects
+    public GameObject enemyUI;
+    public Slider enemySlider;
+    public TextMeshProUGUI enemyName;
+    public Image enemyImage;
+    public float enemyUITimer = 4f;
+    private float enemyTimer;
     public GameObject[] enemy;
     public float maxZ, minZ;
     public int numberOfEnemies;
@@ -49,6 +63,14 @@ public class GM : MonoBehaviour
         animator = GetComponent<Animator>();
         //DontDestroyOnLoad(gameObject);
 
+        // UI items
+        //player = FindObjectOfType<Player>();
+        //HealthUI.maxValue = player.maxHealth;
+        //HealthUI.value = HealthUI.maxValue;
+        //playerName.text = player.playerName;
+        //playerImage.sprite = player.playerImage;
+        //UpdateLives();
+
     }
 
     // Update is called once per frame
@@ -68,6 +90,13 @@ public class GM : MonoBehaviour
                 FindObjectOfType<CamFollow>().maxXAndY.x = 200;
                 gameObject.SetActive(false);
             }
+        }
+        // checking the timer for the enemy
+        enemyTimer += Time.deltaTime;
+        if (enemyTimer >= enemyUITimer)
+        {
+            enemyUI.SetActive(false);
+            enemyTimer = 0;
         }
     }
 
@@ -100,7 +129,7 @@ public class GM : MonoBehaviour
 
     }
 
-    // ------------------------------------------------------------------------- SpawnEnemies objects
+    // ------------------------------------------------------------------------- Spawn Enemies objects
 
     // spawnEnemies into the level to fight
     void SpawnEnemy()
@@ -132,5 +161,34 @@ public class GM : MonoBehaviour
             FindObjectOfType<CamFollow>().maxXAndY.x = transform.position.x;
             SpawnEnemy();
         }
+    }
+
+    // --------------------------------------------------------------- player UI's
+
+    public void UpdateHealth(int amount)
+    {
+        HealthUI.value = amount;
+    }
+
+    public void UpdateLives()
+    {
+        //livesText.text = "x " + FindObjectOfType<GameManager>().lives.ToString();
+    }
+
+    public void UpdateDisplayMessage(string message)
+    {
+        //displayMessage.text = message;
+    }
+
+    // --------------------------------------------------------------- Enemy UI's
+
+    public void UpdateEnemyUI(int maxHealth, int currentHealth, string name, Sprite image)
+    {
+        enemySlider.maxValue = maxHealth;
+        enemySlider.value = currentHealth;
+        enemyName.text = name;
+        enemyImage.sprite = image;
+        enemyTimer = 0;
+        enemyUI.SetActive(true);
     }
 }
