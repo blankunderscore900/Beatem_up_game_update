@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class GM : MonoBehaviour
 {
     // setting up and sorting the Game menu objects
+    // ------------------------------------------------------- menu objects - These are working right now
     [Header("Game Menus")]
     public GameObject Menu;
     public GameObject Pause;
@@ -19,10 +20,11 @@ public class GM : MonoBehaviour
     private Animator animator;
     public GameObject PauseButton, OptionsButton, ExitAbout;
 
+    // --------------------------------------------------------------------------- player objects
     [Header("Player"), Tooltip("list of player objects")]
-    // player objects
     public GameObject[] player;
     public int PlayerLives;
+    public int PH;
     public Slider HealthUI;
     public Image playerImage;
     public TextMeshProUGUI playerName;
@@ -30,22 +32,16 @@ public class GM : MonoBehaviour
     public TextMeshProUGUI disPlayMessage;
     private Player playerUI;
 
-
+    //  ---------------------------------------------------------------------------- enemy objects
     [Header("Enemy")]
     [Tooltip("list of enemy objects")]
-    // enemy objects
     public GameObject enemyUI;
     public Slider enemySlider;
     public TextMeshProUGUI enemyName;
     public Image enemyImage;
     public float enemyUITimer = 4f;
     private float enemyTimer;
-    public GameObject[] enemy;
-    public float maxZ, minZ;
-    public int numberOfEnemies;
-    public float spawnTime;
-    public int waves;
-    private int currentEnemies;
+    public GameObject[] waves;
 
 
     // instance
@@ -82,15 +78,6 @@ public class GM : MonoBehaviour
             PauseGame();
         }
 
-        if(currentEnemies >= numberOfEnemies)
-        {
-            int enemies = FindObjectsOfType<Enemy>().Length;
-            if(enemies <= 0)
-            {
-                FindObjectOfType<CamFollow>().maxXAndY.x = 200;
-                gameObject.SetActive(false);
-            }
-        }
         // checking the timer for the enemy
         enemyTimer += Time.deltaTime;
         if (enemyTimer >= enemyUITimer)
@@ -129,44 +116,12 @@ public class GM : MonoBehaviour
 
     }
 
-    // ------------------------------------------------------------------------- Spawn Enemies objects
-
-    // spawnEnemies into the level to fight
-    void SpawnEnemy()
-    {
-        bool positionX = Random.Range(0, 2) == 0 ? true : false;
-        Vector3 spawnPosition;
-        spawnPosition.z = Random.Range(minZ, maxZ);
-        if (positionX)
-        {
-            spawnPosition = new Vector3(transform.position.x + 20, 0, spawnPosition.z);
-        }
-        else
-        {
-            spawnPosition = new Vector3(transform.position.x - 20, 0, spawnPosition.z);
-        }
-        Instantiate(enemy[Random.Range(0, enemy.Length)], spawnPosition, Quaternion.identity);
-        currentEnemies++;
-        if (currentEnemies < numberOfEnemies)
-        {
-            Invoke("SpawnEnemy", spawnTime);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            GetComponent<BoxCollider>().enabled = false;
-            FindObjectOfType<CamFollow>().maxXAndY.x = transform.position.x;
-            SpawnEnemy();
-        }
-    }
 
     // --------------------------------------------------------------- player UI's
 
     public void UpdateHealth(int amount)
     {
+        PH = amount;
         HealthUI.value = amount;
     }
 

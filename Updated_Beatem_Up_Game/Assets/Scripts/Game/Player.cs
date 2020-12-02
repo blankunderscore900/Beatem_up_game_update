@@ -6,31 +6,38 @@ public class Player : MonoBehaviour
 {
     // setting up and sorting the player's objects
     [Header("Player Status")]
+    // ------------------------------------------- Moving and Jumping objects
+    [Tooltip("Geting the rigidbody from the player")]
+    private Rigidbody rb;
     [Tooltip("Adjust Player Speed")]
     public float playerMoveSpeed;
     [Tooltip("Adjust Player Jump Height")]
     public float jumpForce = 400;
     [Tooltip("Adjust Player Distance from the top of the screen to bottom")]
     public float minHeight, maxHeight;
-    [Tooltip("Adjust how the Player has for life until dying")]
-    public int playerLife = 10;
-    [Tooltip("checking if the player attack gameobejct can attack")]
-    public GameObject attacking;
-    [Tooltip("Set a name for the Player")]
-    public string playerName;
-    [Tooltip("Setting a image to show what the player will look like")]
-    public Sprite playerImage;
-    [Tooltip("Geting the rigidbody from the player")]
-    private Rigidbody rb;
+    private bool facingRight = true;
+    [Tooltip("checking if the player can jump")]
+    private bool jump = false;
     [Tooltip("Getting the groundcheck from the player")]
     private Transform groundCheck;
     [Tooltip("Seeing if the player is on the ground")]
     private bool onGround;
-    [Tooltip("checking if the player can jump")]
-    private bool jump = false;
+
+    // ------------------------------------ Attacking and health objects
     [Tooltip("checking if the player can attack")]
     private bool attack = false;
-    private bool facingRight = true;
+    [Tooltip("checking if the player attack gameobejct can attack")]
+    public GameObject attacking;
+    [Tooltip("Adjust how much the Player has for life until dying")]
+    private int playerLife;
+    private bool isDead = false;
+
+    // ----------------------------------------------- Player's UI
+    [Tooltip("Set a name for the Player")]
+    public string playerName;
+    [Tooltip("Setting a image to show what the player will look like")]
+    public Sprite playerImage;
+
 
     /*
     public AudioClip collisionSound, jumpSound, healthItem;
@@ -40,7 +47,6 @@ public class Player : MonoBehaviour
     public GameObject healthBar;
     private float currentSpeed;
     private Animator anim;
-    private bool isDead = false;
     private AudioSource audioS;
     */
 
@@ -126,9 +132,30 @@ public class Player : MonoBehaviour
 
     public void TookDamge(int damage)
     {
+        if (!isDead)
+        {
+            playerLife -= damage;
+            //+anim.SetTrigger("HitDamage");
+            FindObjectOfType<GM>().UpdateHealth(playerLife);
+            //PlaySong(collisionSound);
+            if (playerLife <= 0)
+            {
+                isDead = true;
+                FindObjectOfType<GM>().PlayerLives--;
 
+                if (facingRight)
+                {
+                    rb.AddForce(new Vector3(-3, 5, 0), ForceMode.Impulse);
+                }
+                else
+                {
+                    rb.AddForce(new Vector3(3, 5, 0), ForceMode.Impulse);
+                }
+            }
+        }
     }
 
+    //  -------------------------------------- attack script
     private void OnTriggerEnter(Collider other)
     {
         Player player = other.GetComponent<Player>(); 
