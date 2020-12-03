@@ -14,16 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
-    - Assets/Prefabs.meta
-    - Assets/Prefabs/Player.prefab
-    - Assets/Prefabs/Player.prefab.meta
     - Assets/Scenes/Game.unity
+    - Assets/Scripts/Game/Enemy.cs
     - Assets/Scripts/Game/GM.cs
-    - Assets/Scripts/Game/Player.cs
-    - Assets/Scripts/Game/Spawner.cs
-    - Assets/Scripts/Game/Spawner.cs.meta
+    - ProjectSettings/TagManager.asset
     - 
-    m_Values: 000000000000000000
+    m_Values: 0000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 

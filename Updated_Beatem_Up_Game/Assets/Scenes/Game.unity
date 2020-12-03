@@ -156,7 +156,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -378,11 +378,11 @@ GameObject:
   - component: {fileID: 88836712}
   m_Layer: 5
   m_Name: PauseMenu
-  m_TagString: Untagged
+  m_TagString: PauseMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &88836711
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2184,7 +2184,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2237,7 +2237,7 @@ GameObject:
   - component: {fileID: 839965424}
   m_Layer: 0
   m_Name: LevelObjects
-  m_TagString: Untagged
+  m_TagString: LevelObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2249,12 +2249,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839965423}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1863040182}
   - {fileID: 620255349}
+  - {fileID: 1081665845163876212}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2540,7 +2541,7 @@ GameObject:
   - component: {fileID: 970566254}
   m_Layer: 5
   m_Name: GameMenu
-  m_TagString: Untagged
+  m_TagString: GameMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3115,7 +3116,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3396,6 +3397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Menu: {fileID: 970566252}
   Pause: {fileID: 88836710}
+  LevelObjects: {fileID: 839965423}
   GameResults: {fileID: 0}
   gameTime: {fileID: 0}
   Lives: {fileID: 0}
@@ -3403,21 +3405,8 @@ MonoBehaviour:
   PauseButton: {fileID: 1879209918}
   OptionsButton: {fileID: 0}
   ExitAbout: {fileID: 990485818}
-  player:
-  - {fileID: 0}
   PlayerLives: 0
-  PH: 200
-  HealthUI: {fileID: 1912043531}
-  playerImage: {fileID: 0}
-  playerName: {fileID: 0}
-  livesText: {fileID: 0}
-  disPlayMessage: {fileID: 0}
-  enemyUI: {fileID: 0}
-  enemySlider: {fileID: 0}
-  enemyName: {fileID: 0}
-  enemyImage: {fileID: 0}
-  enemyUITimer: 4
-  waves: []
+  characterIndex: 0
 --- !u!4 &1411498666
 Transform:
   m_ObjectHideFlags: 0
@@ -4233,7 +4222,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5311,14 +5300,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081665845163876208}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -50, y: 0, z: -10}
   m_LocalScale: {x: 100, y: 200, z: 1}
   m_Children:
   - {fileID: 1081665844730150752}
   - {fileID: 1081665843808868374}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 839965424}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1081665845163876213
 MonoBehaviour:

@@ -125,7 +125,7 @@ public class Enemy : MonoBehaviour
             currentHealth -= damage;
             anim.SetTrigger("HitDamage");
             //PlaySong(collisionSound);
-            FindObjectOfType<GM>().UpdateEnemyUI(maxHealth, currentHealth, enemyName, enemyImage);
+            //FindObjectOfType<GM>().UpdateEnemyUI(maxHealth, currentHealth, enemyName, enemyImage);
             if (currentHealth <= 0)
             {
                 isDead = true;

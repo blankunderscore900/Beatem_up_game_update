@@ -11,8 +11,12 @@ public class GM : MonoBehaviour
     // setting up and sorting the Game menu objects
     // ------------------------------------------------------- menu objects - These are working right now
     [Header("Game Menus")]
-    public GameObject Menu;
-    public GameObject Pause;
+    [SerializeField]
+    private GameObject Menu;
+    [SerializeField]
+    private GameObject Pause;
+    [SerializeField]
+    private GameObject LevelObjects;
     public TextMeshProUGUI GameResults;
     public TextMeshProUGUI gameTime;
     public TextMeshProUGUI Lives;
@@ -22,8 +26,10 @@ public class GM : MonoBehaviour
 
     // --------------------------------------------------------------------------- player objects
     [Header("Player"), Tooltip("list of player objects")]
-    public GameObject[] player;
     public int PlayerLives;
+    public int characterIndex;
+    /*
+    public GameObject[] player;
     public int PH;
     public Slider HealthUI;
     public Image playerImage;
@@ -31,10 +37,11 @@ public class GM : MonoBehaviour
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI disPlayMessage;
     private Player playerUI;
-
+    */
     //  ---------------------------------------------------------------------------- enemy objects
     [Header("Enemy")]
     [Tooltip("list of enemy objects")]
+    /*
     public GameObject enemyUI;
     public Slider enemySlider;
     public TextMeshProUGUI enemyName;
@@ -42,15 +49,29 @@ public class GM : MonoBehaviour
     public float enemyUITimer = 4f;
     private float enemyTimer;
     public GameObject[] waves;
-
+    */
 
     // instance
     public static GM instance;
 
     private void Awake()
     {
-        instance = this;
-        Instantiate(player[PlayerLives], transform.position, transform.rotation);
+        Menu = GameObject.Find("GameMenu");
+        Pause = GameObject.Find("PauseMenu");
+        LevelObjects = GameObject.Find("LevelObjects");
+        Pause.SetActive(false);
+        // Makeing sure that the game manager get does not get destory and only have one loaded at a time
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+        //Instantiate(player[PlayerLives], transform.position, transform.rotation);
     }
 
     // Start is called before the first frame update
@@ -77,7 +98,7 @@ public class GM : MonoBehaviour
         {
             PauseGame();
         }
-
+        /*
         // checking the timer for the enemy
         enemyTimer += Time.deltaTime;
         if (enemyTimer >= enemyUITimer)
@@ -85,6 +106,7 @@ public class GM : MonoBehaviour
             enemyUI.SetActive(false);
             enemyTimer = 0;
         }
+        */
     }
 
     public void PauseGame()
@@ -96,6 +118,7 @@ public class GM : MonoBehaviour
             Time.timeScale = 0f;
             Menu.SetActive(false);
             Pause.SetActive(true);
+            LevelObjects.SetActive(false);
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(PauseButton);
         }
@@ -104,6 +127,7 @@ public class GM : MonoBehaviour
             Time.timeScale = 1f;
             Menu.SetActive(true);
             Pause.SetActive(false);
+            LevelObjects.SetActive(true);
         }
     }
 
@@ -121,8 +145,8 @@ public class GM : MonoBehaviour
 
     public void UpdateHealth(int amount)
     {
-        PH = amount;
-        HealthUI.value = amount;
+        //PH = amount;
+        //HealthUI.value = amount;
     }
 
     public void UpdateLives()
@@ -136,7 +160,7 @@ public class GM : MonoBehaviour
     }
 
     // --------------------------------------------------------------- Enemy UI's
-
+    /*
     public void UpdateEnemyUI(int maxHealth, int currentHealth, string name, Sprite image)
     {
         enemySlider.maxValue = maxHealth;
@@ -146,4 +170,5 @@ public class GM : MonoBehaviour
         enemyTimer = 0;
         enemyUI.SetActive(true);
     }
+    */
 }
