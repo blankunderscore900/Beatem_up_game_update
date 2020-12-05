@@ -15,11 +15,14 @@ MonoBehaviour:
   SimpleSelectedItems:
     m_Keys:
     - Assets/Scenes/Game.unity
-    - Assets/Scripts/Game/Enemy.cs
     - Assets/Scripts/Game/GM.cs
-    - ProjectSettings/TagManager.asset
+    - Assets/Scripts/Game/Menus.cs
+    - Assets/Scripts/Game/Menus.cs.meta
+    - Packages/manifest.json
+    - Packages/packages-lock.json
+    - ProjectSettings/ProjectVersion.txt
     - 
-    m_Values: 0000000000
+    m_Values: 0000000000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 

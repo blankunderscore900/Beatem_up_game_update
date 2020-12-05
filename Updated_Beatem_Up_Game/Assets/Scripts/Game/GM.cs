@@ -8,29 +8,17 @@ using UnityEngine.EventSystems;
 
 public class GM : MonoBehaviour
 {
-    // setting up and sorting the Game menu objects
-    // ------------------------------------------------------- menu objects - These are working right now
-    [Header("Game Menus")]
-    [SerializeField]
-    private GameObject Menu;
-    [SerializeField]
-    private GameObject Pause;
-    [SerializeField]
-    private GameObject LevelObjects;
-    public TextMeshProUGUI GameResults;
-    public TextMeshProUGUI gameTime;
-    public TextMeshProUGUI Lives;
-    public bool gameIsPaused;
-    private Animator animator;
-    public GameObject PauseButton, OptionsButton, ExitAbout;
 
     // --------------------------------------------------------------------------- player objects
-    [Header("Player"), Tooltip("list of player objects")]
+    [Header("Player")]
+    [Tooltip("Adjust how much live the player has")]
     public int PlayerLives;
+    [Tooltip("Selecting what character will show in the game")]
     public int characterIndex;
+    [Tooltip("Adjust how much health the player has")]
+    public int PH;
     /*
     public GameObject[] player;
-    public int PH;
     public Slider HealthUI;
     public Image playerImage;
     public TextMeshProUGUI playerName;
@@ -56,10 +44,6 @@ public class GM : MonoBehaviour
 
     private void Awake()
     {
-        Menu = GameObject.Find("GameMenu");
-        Pause = GameObject.Find("PauseMenu");
-        LevelObjects = GameObject.Find("LevelObjects");
-        Pause.SetActive(false);
         // Makeing sure that the game manager get does not get destory and only have one loaded at a time
         if (instance == null)
         {
@@ -77,7 +61,6 @@ public class GM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
         //DontDestroyOnLoad(gameObject);
 
         // UI items
@@ -93,11 +76,6 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Pressing the escape key will pause the game
-        if (Input.GetKeyDown("escape"))
-        {
-            PauseGame();
-        }
         /*
         // checking the timer for the enemy
         enemyTimer += Time.deltaTime;
@@ -109,27 +87,6 @@ public class GM : MonoBehaviour
         */
     }
 
-    public void PauseGame()
-    {
-        gameIsPaused = !gameIsPaused;
-        // Pause the game to bring up the pause menu
-        if (gameIsPaused)
-        {
-            Time.timeScale = 0f;
-            Menu.SetActive(false);
-            Pause.SetActive(true);
-            LevelObjects.SetActive(false);
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(PauseButton);
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            Menu.SetActive(true);
-            Pause.SetActive(false);
-            LevelObjects.SetActive(true);
-        }
-    }
 
     public void MenuScreen()
     {
