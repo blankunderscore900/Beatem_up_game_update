@@ -55,77 +55,18 @@ public class GM : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-        //Instantiate(player[PlayerLives], transform.position, transform.rotation);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //DontDestroyOnLoad(gameObject);
-
-        // UI items
-        //player = FindObjectOfType<Player>();
-        //HealthUI.maxValue = player.maxHealth;
-        //HealthUI.value = HealthUI.maxValue;
-        //playerName.text = player.playerName;
-        //playerImage.sprite = player.playerImage;
-        //UpdateLives();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        // checking the timer for the enemy
-        enemyTimer += Time.deltaTime;
-        if (enemyTimer >= enemyUITimer)
-        {
-            enemyUI.SetActive(false);
-            enemyTimer = 0;
-        }
-        */
-    }
-
-
-    public void MenuScreen()
-    {
-        Time.timeScale = 1f;
-        // loads the game scene
-        SceneManager.LoadScene("MainMenu");
-
 
     }
 
-
-    // --------------------------------------------------------------- player UI's
-
-    public void UpdateHealth(int amount)
-    {
-        //PH = amount;
-        //HealthUI.value = amount;
-    }
-
-    public void UpdateLives()
-    {
-        //livesText.text = "x " + FindObjectOfType<GameManager>().lives.ToString();
-    }
-
-    public void UpdateDisplayMessage(string message)
-    {
-        //displayMessage.text = message;
-    }
-
-    // --------------------------------------------------------------- Enemy UI's
-    /*
-    public void UpdateEnemyUI(int maxHealth, int currentHealth, string name, Sprite image)
-    {
-        enemySlider.maxValue = maxHealth;
-        enemySlider.value = currentHealth;
-        enemyName.text = name;
-        enemyImage.sprite = image;
-        enemyTimer = 0;
-        enemyUI.SetActive(true);
-    }
-    */
 }

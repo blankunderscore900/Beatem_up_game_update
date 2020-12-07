@@ -231,7 +231,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2559,7 +2559,7 @@ RectTransform:
   m_Children:
   - {fileID: 430334906}
   - {fileID: 760692578}
-  - {fileID: 1393183733}
+  - {fileID: 1036447682}
   - {fileID: 387655792}
   m_Father: {fileID: 1464653390}
   m_RootOrder: 0
@@ -2802,6 +2802,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990485818}
   m_CullTransparentMesh: 0
+--- !u!1 &1036447681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1036447682}
+  m_Layer: 5
+  m_Name: EnemyUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1036447682
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036447681}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1393183733}
+  m_Father: {fileID: 970566253}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1 &1138194377
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,8 +3276,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1411498665}
-        m_TargetAssemblyTypeName: GM, Assembly-CSharp
+      - m_Target: {fileID: 1464653391}
+        m_TargetAssemblyTypeName: Menus, Assembly-CSharp
         m_MethodName: MenuScreen
         m_Mode: 1
         m_Arguments:
@@ -3317,11 +3353,11 @@ RectTransform:
   m_GameObject: {fileID: 1393183732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalScale: {x: 0.8999999, y: 0.8999999, z: 1}
   m_Children:
   - {fileID: 2126349707}
-  m_Father: {fileID: 970566253}
-  m_RootOrder: 2
+  m_Father: {fileID: 1036447682}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3397,6 +3433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerLives: 0
   characterIndex: 0
+  PH: 0
 --- !u!4 &1411498666
 Transform:
   m_ObjectHideFlags: 0
@@ -3680,16 +3717,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e6e43c2d7c6b04d88c33b6f73beec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameMenu: {fileID: 0}
-  PauseMenu: {fileID: 0}
   LevelObjects: {fileID: 0}
-  GameResults: {fileID: 0}
-  gameTime: {fileID: 0}
-  Lives: {fileID: 0}
+  gameTime: {fileID: 760692579}
   gameIsPaused: 0
   PauseButton: {fileID: 1879209918}
   OptionsButton: {fileID: 0}
   ExitAbout: {fileID: 0}
+  healthUI: {fileID: 1912043531}
+  playerImage: {fileID: 430334907}
+  playerName: {fileID: 888207175}
+  livesText: {fileID: 1550266276}
+  displayMessage: {fileID: 387655793}
+  enemyUI: {fileID: 1036447681}
+  enemySlider: {fileID: 608383380}
+  enemyName: {fileID: 2126349708}
+  enemyImage: {fileID: 1393183734}
+  enemyUITime: 4
 --- !u!1 &1550266274
 GameObject:
   m_ObjectHideFlags: 0
@@ -5334,13 +5377,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08eec0c050b34b24288fcca46b833ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoveSpeed: 50
+  maxSpeed: 4
   jumpForce: 10000
   minHeight: -20
   maxHeight: 10
-  attacking: {fileID: 1081665843808868369}
-  playerName: 
+  maxHealth: 10
+  playerName: Nick
   playerImage: {fileID: 0}
+  collisionSound: {fileID: 0}
+  jumpSound: {fileID: 0}
+  healthItem: {fileID: 0}
 --- !u!136 &1081665845163876214
 CapsuleCollider:
   m_ObjectHideFlags: 0

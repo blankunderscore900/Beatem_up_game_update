@@ -15,14 +15,12 @@ MonoBehaviour:
   SimpleSelectedItems:
     m_Keys:
     - Assets/Scenes/Game.unity
+    - Assets/Scripts/Game/CamFollow.cs
     - Assets/Scripts/Game/GM.cs
     - Assets/Scripts/Game/Menus.cs
-    - Assets/Scripts/Game/Menus.cs.meta
-    - Packages/manifest.json
-    - Packages/packages-lock.json
-    - ProjectSettings/ProjectVersion.txt
+    - Assets/Scripts/Game/Player.cs
     - 
-    m_Values: 0000000000000000
+    m_Values: 010101010101
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 

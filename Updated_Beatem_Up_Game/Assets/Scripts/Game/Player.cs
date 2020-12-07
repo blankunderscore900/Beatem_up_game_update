@@ -1,170 +1,189 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    // setting up and sorting the player's objects
-    [Header("Player Status")]
-    // ------------------------------------------- Moving and Jumping objects
-    [Tooltip("Geting the rigidbody from the player")]
-    private Rigidbody rb;
-    [Tooltip("Adjust Player Speed")]
-    public float playerMoveSpeed;
-    [Tooltip("Adjust Player Jump Height")]
-    public float jumpForce = 400;
-    [Tooltip("Adjust Player Distance from the top of the screen to bottom")]
-    public float minHeight, maxHeight;
-    private bool facingRight = true;
-    [Tooltip("checking if the player can jump")]
-    private bool jump = false;
-    [Tooltip("Getting the groundcheck from the player")]
-    private Transform groundCheck;
-    [Tooltip("Seeing if the player is on the ground")]
-    private bool onGround;
+	public float maxSpeed = 4;
+	public float jumpForce = 400;
+	public float minHeight, maxHeight;
+	public int maxHealth = 10;
+	public string playerName;
+	public Sprite playerImage;
+	public AudioClip collisionSound, jumpSound, healthItem;
 
-    // ------------------------------------ Attacking and health objects
-    [Tooltip("checking if the player can attack")]
-    private bool attack = false;
-    [Tooltip("checking if the player attack gameobejct can attack")]
-    public GameObject attacking;
-    [Tooltip("Adjust how much the Player has for life until dying")]
-    private int playerLife;
-    private bool isDead = false;
+	private int currentHealth;
+	private float currentSpeed;
+	private Rigidbody rb;
+	//private Animator anim;
+	private Transform groundCheck;
+	private bool onGround;
+	private bool isDead = false;
+	private bool facingRight = true;
+	private bool jump = false;
+	private AudioSource audioS;
 
-    // ----------------------------------------------- Player's UI
-    [Tooltip("Set a name for the Player")]
-    public string playerName;
-    [Tooltip("Setting a image to show what the player will look like")]
-    public Sprite playerImage;
+	// Use this for initialization
+	void Start()
+	{
 
+		rb = GetComponent<Rigidbody>();
+		//anim = GetComponent<Animator>();
+		groundCheck = gameObject.transform.Find("GroundCheck");
+		currentSpeed = maxSpeed;
+		currentHealth = maxHealth;
+		audioS = GetComponent<AudioSource>();
 
-    /*
-    public AudioClip collisionSound, jumpSound, healthItem;
-    public int currentHealth;
-    public int playerAttack;
-    public int lives;
-    public GameObject healthBar;
-    private float currentSpeed;
-    private Animator anim;
-    private AudioSource audioS;
-    */
+	}
 
+	// Update is called once per frame
+	void Update()
+	{
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        groundCheck = gameObject.transform.Find("GroundCheck");
-    }
+		onGround = Physics.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
-    // Update is called once per frame
-    void Update()
-    {
+		//anim.SetBool("OnGround", onGround);
+		//anim.SetBool("Dead", isDead);
 
-        onGround = Physics.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-        
-        if(Input.GetButtonDown("Jump") && onGround)
-        {
-            jump = true;
-        }
+		if (Input.GetButtonDown("Jump") && onGround)
+		{
+			jump = true;
+		}
 
-        if (Input.GetKeyDown("mouse 0"))
-        {
-            attack = true;
-        }
-    }
+		if (Input.GetButtonDown("Fire1"))
+		{
+			//anim.SetTrigger("Attack");
+		}
 
-    void FixedUpdate()
-    {
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertical");
-        rb.velocity = new Vector3(xInput * playerMoveSpeed, rb.velocity.y, zInput * playerMoveSpeed);
+	}
 
-        if (jump)
-        {
-            jump = false;
-            Debug.Log("The jump is working");
-            rb.AddForce(Vector3.up* jumpForce);
-        }
+	private void FixedUpdate()
+	{
+		if (!isDead)
+		{
+			float h = Input.GetAxis("Horizontal");
+			float z = Input.GetAxis("Vertical");
 
-        if (xInput > 0 && !facingRight)
-        {
-            Flip();
-        }
-        else if (xInput < 0 && facingRight)
-        {
-            Flip();
-        }
+			if (!onGround)
+				z = 0;
 
-        if (attack)
-        {
-            attack = false;
-            attacking.SetActive(true);
-        }
-        else
-        {
-            attacking.SetActive(false);
-        }
+			rb.velocity = new Vector3(h * currentSpeed, rb.velocity.y, z * currentSpeed);
 
-        float minWidth = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 10)).x;
-        float maxWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 10)).x;
-        rb.position = new Vector3(Mathf.Clamp(rb.position.x, minWidth + 1, maxWidth - 1), rb.position.y, Mathf.Clamp(rb.position.z, minHeight, maxHeight));
+			if (onGround)
+				//anim.SetFloat("Speed", Mathf.Abs(rb.velocity.magnitude));
 
-    }
+			if (h > 0 && !facingRight)
+			{
+				Flip();
+			}
+			else if (h < 0 && facingRight)
+			{
+				Flip();
+			}
 
-    void Flip()
-    {
-        // fliping the player left or right to attack 
-        facingRight = !facingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-    }
+			if (jump)
+			{
+				jump = false;
+				rb.AddForce(Vector3.up * jumpForce);
+				PlaySong(jumpSound);
+			}
+			float minWidth = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 10)).x;
+			float maxWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 10)).x;
+			rb.position = new Vector3(Mathf.Clamp(rb.position.x, minWidth + 1, maxWidth - 1),
+				rb.position.y,
+				Mathf.Clamp(rb.position.z, minHeight, maxHeight));
+		}
+	}
 
+	void Flip()
+	{
+		facingRight = !facingRight;
 
+		Vector3 scale = transform.localScale;
+		scale.x *= -1;
+		transform.localScale = scale;
+	}
 
-    //Placing the health bar at the top of the menu
-    private void PlayerHealthBar(float curHealth)
-    {
-        //healthBar.transform.localScale = new Vector3(Mathf.Clamp(curHealth, 0f, 1f), healthBar.transform.localScale.y, healthBar.transform.localScale.z);
-    }
+	void ZeroSpeed()
+	{
+		currentSpeed = 0;
+	}
 
-    public void TookDamge(int damage)
-    {
-        if (!isDead)
-        {
-            playerLife -= damage;
-            //+anim.SetTrigger("HitDamage");
-            FindObjectOfType<GM>().UpdateHealth(playerLife);
-            //PlaySong(collisionSound);
-            if (playerLife <= 0)
-            {
-                isDead = true;
-                FindObjectOfType<GM>().PlayerLives--;
+	void ResetSpeed()
+	{
+		currentSpeed = maxSpeed;
+	}
 
-                if (facingRight)
-                {
-                    rb.AddForce(new Vector3(-3, 5, 0), ForceMode.Impulse);
-                }
-                else
-                {
-                    rb.AddForce(new Vector3(3, 5, 0), ForceMode.Impulse);
-                }
-            }
-        }
-    }
+	public void TookDamage(int damage)
+	{
+		if (!isDead)
+		{
+			currentHealth -= damage;
+			//anim.SetTrigger("HitDamage");
+			FindObjectOfType<Menus>().UpdateHealth(currentHealth);
+			PlaySong(collisionSound);
+			if (currentHealth <= 0)
+			{
+				isDead = true;
+				FindObjectOfType<GM>().PlayerLives--;
 
-    //  -------------------------------------- attack script
-    private void OnTriggerEnter(Collider other)
-    {
-        Player player = other.GetComponent<Player>(); 
-        /*if( Player != null)
-        {
-            Player.TookDamage(playerAttack);
-        }
-        */
-    }
+				if (facingRight)
+				{
+					rb.AddForce(new Vector3(-3, 5, 0), ForceMode.Impulse);
+				}
+				else
+				{
+					rb.AddForce(new Vector3(3, 5, 0), ForceMode.Impulse);
+				}
+			}
+		}
+	}
 
+	public void PlaySong(AudioClip clip)
+	{
+		audioS.clip = clip;
+		audioS.Play();
+	}
 
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("Health Item"))
+		{
+			if (Input.GetButtonDown("Fire2"))
+			{
+				Destroy(other.gameObject);
+				//anim.SetTrigger("Catching");
+				PlaySong(healthItem);
+				currentHealth = maxHealth;
+				FindObjectOfType<Menus>().UpdateHealth(currentHealth);
+			}
+		}
+	}
+
+	void PlayerRespawn()
+	{
+		if (FindObjectOfType<GM>().PlayerLives > 0)
+		{
+			isDead = false;
+			FindObjectOfType<Menus>().UpdateLives();
+			currentHealth = maxHealth;
+			FindObjectOfType<Menus>().UpdateHealth(currentHealth);
+			//anim.Rebind();
+			float minWidth = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 10)).x;
+			transform.position = new Vector3(minWidth, 10, -4);
+		}
+		else
+		{
+			FindObjectOfType<Menus>().UpdateDisplayMessage("Game Over");
+			Destroy(FindObjectOfType<GM>().gameObject);
+			Invoke("LoadScene", 2f);
+		}
+
+	}
+
+	void LoadScene()
+	{
+		SceneManager.LoadScene(0);
+	}
 }
