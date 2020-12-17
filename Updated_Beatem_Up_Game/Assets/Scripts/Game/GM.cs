@@ -17,6 +17,10 @@ public class GM : MonoBehaviour
     public int characterIndex;
     [Tooltip("Adjust how much health the player has")]
     public int PH;
+    [Tooltip("Adjust the much damage the enemey can give to the player based on what the player picks at the start of the game")]
+    private int PlayerDamage;
+    // this will be the damage multiply to the player
+    public float enemyAttack;
     /*
     public GameObject[] player;
     public Slider HealthUI;
@@ -60,7 +64,7 @@ public class GM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Debug.Log("PlayerLives = " + PlayerLives);
     }
 
     // Update is called once per frame
@@ -69,4 +73,19 @@ public class GM : MonoBehaviour
 
     }
 
+    private void GameMode()
+    {
+        if(PlayerDamage == 1)
+        {
+            enemyAttack = 0.5f;
+        }
+        else if(PlayerDamage == 2)
+        {
+            enemyAttack = 0.9f;
+        }
+        else
+        {
+            enemyAttack = 1.5f;
+        }
+    }
 }

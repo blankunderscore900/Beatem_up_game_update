@@ -112,11 +112,12 @@ public class Menus : MonoBehaviour
 
     }
 
-    public void UpdateHealth(int amount)
+    public void UpdateHealth(float amount)
     {
         healthUI.value = amount;
     }
 
+    // Showing the player what the enemy's name, max health, current health and what the look like in the HUD
     public void UpdateEnemyUI(int maxHealth, int currentHealth, string name, Sprite image)
     {
         enemySlider.maxValue = maxHealth;
@@ -127,11 +128,13 @@ public class Menus : MonoBehaviour
         enemyUI.SetActive(true);
     }
 
+    // Updates the U.I. to show the player how many live the player has
     public void UpdateLives()
     {
         livesText.text = "x " + FindObjectOfType<GM>().PlayerLives.ToString();
     }
 
+    // Showing the player if they have won or lost in the game
     public void UpdateDisplayMessage(string message)
     {
         displayMessage.text = message;

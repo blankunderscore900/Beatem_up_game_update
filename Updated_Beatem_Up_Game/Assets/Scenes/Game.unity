@@ -3431,9 +3431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a09f8f880815c449c903d87d25b532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerLives: 0
+  PlayerLives: 3
   characterIndex: 0
   PH: 0
+  enemyAttack: 0
 --- !u!4 &1411498666
 Transform:
   m_ObjectHideFlags: 0

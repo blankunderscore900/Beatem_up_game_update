@@ -115,4 +115,9 @@ public class MenuAnimations : MonoBehaviour
         Debug.Log("The Game Has quit");
         Application.Quit();
     }
+
+    public void SetLives(int lives)
+    {
+        FindObjectOfType<GM>().PlayerLives = lives;
+    }
 }

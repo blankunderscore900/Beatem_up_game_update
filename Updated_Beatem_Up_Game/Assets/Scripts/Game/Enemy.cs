@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private Transform target;
     private float walkTimer;
-    private int currentHealth;
+    private float currentHealth;
     private float currentSpeed;
     private float nextAttack;
     private float zForce;
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public void TookDamage(int damage)
+    public void TookDamage(float damage)
     {
         if (!isDead)
         {

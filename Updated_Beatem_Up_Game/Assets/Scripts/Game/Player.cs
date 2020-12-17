@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 	public Sprite playerImage;
 	public AudioClip collisionSound, jumpSound, healthItem;
 
-	private int currentHealth;
+	private float currentHealth;
 	private float currentSpeed;
 	private Rigidbody rb;
 	//private Animator anim;
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
 		currentSpeed = maxSpeed;
 	}
 
-	public void TookDamage(int damage)
+	public void TookDamage(float damage)
 	{
 		if (!isDead)
 		{
