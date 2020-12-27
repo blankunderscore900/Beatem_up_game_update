@@ -8,6 +8,10 @@ TagManager:
   - GameMenu
   - PauseMenu
   - LevelObjects
+  - MenuMusic
+  - ButtonFX
+  - OptionsMusic
+  - EnterFX
   layers:
   - Default
   - TransparentFX

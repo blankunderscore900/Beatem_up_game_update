@@ -30,16 +30,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            GetComponent<BoxCollider>().enabled = false;
-            FindObjectOfType<CamFollow>().maxXAndY.x = transform.position.x;
-            SpawnEnemy();
-        }
-    }
-
 
     // spawnEnemies into the level to fight
     void SpawnEnemy()
@@ -60,6 +50,17 @@ public class Spawner : MonoBehaviour
         if (currentEnemies < numberOfEnemies)
         {
             Invoke("SpawnEnemy", spawnTime);
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            FindObjectOfType<CamFollow>().maxXAndY.x = transform.position.x;
+            SpawnEnemy();
         }
     }
 }

@@ -43,6 +43,10 @@ public class Menus : MonoBehaviour
     private float enemyTimer;
     private Player player;
 
+    // ---------------------------------------------------- Audio
+
+    private Music music;
+
     private void Awake()
     {
         // Setting up the Menu objects
@@ -50,6 +54,7 @@ public class Menus : MonoBehaviour
         PauseMenu = GameObject.Find("PauseMenu");
         LevelObjects = GameObject.Find("LevelObjects");
         PauseMenu.SetActive(false);
+        music = FindObjectOfType<Music>();
     }
 
     // Start is called before the first frame update
@@ -118,7 +123,7 @@ public class Menus : MonoBehaviour
     }
 
     // Showing the player what the enemy's name, max health, current health and what the look like in the HUD
-    public void UpdateEnemyUI(int maxHealth, int currentHealth, string name, Sprite image)
+    public void UpdateEnemyUI(float maxHealth, float currentHealth, string name, Sprite image)
     {
         enemySlider.maxValue = maxHealth;
         enemySlider.value = currentHealth;
@@ -138,5 +143,10 @@ public class Menus : MonoBehaviour
     public void UpdateDisplayMessage(string message)
     {
         displayMessage.text = message;
+    }
+
+    public void PlayGameSoundEffect()
+    {
+        music.ButtonFX.Play();
     }
 }

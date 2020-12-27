@@ -6,7 +6,7 @@ public class CamFollow : MonoBehaviour
 {
 
     public float xMargin = 1f; // Distance in the x axis the player can move before the camera will move
-    public float yMargin = 1f; // Distance in the y axis the player can move before the camera will move
+    //public float yMargin = 1f; // Distance in the y axis the player can move before the camera will move
     public float xSmooth = 8f; // How smoothly the camera will move in the x axis to catch up with the player in the x axis
     public float ySmooth = 8f; // How smoothly the camera will move in the x axis to catch up with the player in the y axis
     public Vector2 maxXAndY; // The maximum x and y coordinates the camera can have.

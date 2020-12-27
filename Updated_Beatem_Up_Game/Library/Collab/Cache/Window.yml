@@ -14,20 +14,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
-    - Assets/Prefabs/_GameManager.prefab
-    - Assets/Prefabs/_GameManager.prefab.meta
+    - Assets/Animations/Menu Animations/Splash Screen.anim
+    - Assets/Audio.meta
+    - Assets/Audio/Music.meta
+    - Assets/Audio/Music/1-Dark Fantasy Studio-Fist of fury.wav
+    - Assets/Audio/Music/1-Dark Fantasy Studio-Fist of fury.wav.meta
+    - Assets/Audio/Music/Options.wav
+    - Assets/Audio/Music/Options.wav.meta
+    - Assets/Audio/Music/character.wav
+    - Assets/Audio/Music/character.wav.meta
+    - Assets/Audio/Sound Effects.meta
+    - Assets/Audio/Sound Effects/Enter.wav
+    - Assets/Audio/Sound Effects/Enter.wav.meta
+    - Assets/Audio/Sound Effects/Select.wav
+    - Assets/Audio/Sound Effects/Select.wav.meta
+    - Assets/Audio/Sound.mixer
+    - Assets/Audio/Sound.mixer.meta
     - Assets/Scenes/Game.unity
     - Assets/Scenes/MainMenu.unity
-    - Assets/Scripts/Game/Attack.cs
-    - Assets/Scripts/Game/Attack.cs.meta
+    - Assets/Scripts/Game/Boss.cs
+    - Assets/Scripts/Game/Boss.cs.meta
+    - Assets/Scripts/Game/CamFollow.cs
     - Assets/Scripts/Game/Enemy.cs
-    - Assets/Scripts/Game/GM.cs
     - Assets/Scripts/Game/Menus.cs
-    - Assets/Scripts/Game/Player.cs
+    - Assets/Scripts/Game/Music.cs
+    - Assets/Scripts/Game/Music.cs.meta
+    - Assets/Scripts/Game/MusicController.cs
+    - Assets/Scripts/Game/MusicController.cs.meta
+    - Assets/Scripts/Game/PlayerSpawner.cs
+    - Assets/Scripts/Game/PlayerSpawner.cs.meta
+    - Assets/Scripts/Game/ResetCameraScript.cs
+    - Assets/Scripts/Game/ResetCameraScript.cs.meta
+    - Assets/Scripts/Game/Spawner.cs
     - Assets/Scripts/Menu/MenuAnimations.cs
+    - Packages/manifest.json
+    - Packages/packages-lock.json
     - ProjectSettings/ProjectVersion.txt
+    - ProjectSettings/TagManager.asset
     - 
-    m_Values: 00000000000000000000000000
+    m_Values: 0000000000000000000000000000000000000000000000000000000000000000000000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 

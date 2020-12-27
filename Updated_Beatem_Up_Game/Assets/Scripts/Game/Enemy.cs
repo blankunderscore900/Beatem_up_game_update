@@ -5,31 +5,40 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Status")]
+    [Tooltip("Adjust the enemy movement Speed")]
     public float enemyMoveSpeed;
+    [Tooltip("Adjust the enemy attack")]
     public int enemyAttack;
+    [Tooltip("Adjust the enemy movement distance from the top of the screen to the bottom")]
     public float minHeight, maxHeight;
+    [Tooltip("Adjust the enemy stun state after getting hit")]
     public float damageTime = 0.5f;
+    [Tooltip("Adjust the enemy's health")]
     public int maxHealth;
+    [Tooltip("Adjust the enemy attack rate")]
     public float attackRate = 1f;
+    [Tooltip("Adjust the enemy's name")]
     public string enemyName;
+    [Tooltip("Adjust the enemy's image")]
     public Sprite enemyImage;
-    public AudioClip collisonSound, deathSound;
+    [Tooltip("Adjust the enemy's sound affect of getting hit and dieing")]
+    public AudioClip collisionSound, deathSound;
 
-    // private enemy objects
-    private Rigidbody rb;
-    private Transform groundCheck;
-    private Animator anim;
-    private Transform target;
-    private float walkTimer;
+
     private float currentHealth;
     private float currentSpeed;
-    private float nextAttack;
-    private float zForce;
-    private bool damaged;
-    private float damageTimer;
-    private bool facingRight;
-    private bool isDead;
+    private Rigidbody rb;
+    protected Animator anim;
+    private Transform groundCheck;
     private bool onGround;
+    protected bool facingRight = false;
+    private Transform target;
+    protected bool isDead = false;
+    private float zForce;
+    private float walkTimer;
+    private bool damaged = false;
+    private float damageTimer;
+    private float nextAttack;
     private AudioSource audioS;
 
     // Start is called before the first frame update
@@ -81,39 +90,32 @@ public class Enemy : MonoBehaviour
     {
         Vector3 targetDistince = target.position - transform.position;
         float hForce = targetDistince.x / Mathf.Abs(targetDistince.x);
-        if (walkTimer >= Random.Range(1f, 2f))
+        if (!isDead)
         {
-            zForce = Random.Range(-1, 2);
-            walkTimer = 0;
+            if (walkTimer >= Random.Range(1f, 2f))
+            {
+                zForce = Random.Range(-1, 2);
+                walkTimer = 0;
+            }
+
+            if (Mathf.Abs(targetDistince.x) < 1.5f)
+            {
+                hForce = 0;
+            }
+
+            if (!damaged)
+                rb.velocity = new Vector3(hForce * currentSpeed, 0, zForce * currentSpeed);
+
+            //anim.SetFloat("Speed", Mathf.Abs(currentSpeed));
+
+            if (Mathf.Abs(targetDistince.x) < 1.5f && Mathf.Abs(targetDistince.z) < 1.5f && Time.time > nextAttack)
+            {
+                //anim.SetTrigger("Attack");
+                currentSpeed = 0;
+                nextAttack = Time.time + attackRate;
+            }
         }
-
-        if (Mathf.Abs(targetDistince.x) < 1.5f)
-        {
-            hForce = 0;
-        }
-
-        if (!damaged)
-            rb.velocity = new Vector3(hForce * currentSpeed, 0, zForce * currentSpeed);
-
-        //anim.SetFloat("Speed", Mathf.Abs(currentSpeed));
-
-        if (Mathf.Abs(targetDistince.x) < 1.5f && Mathf.Abs(targetDistince.z) < 1.5f && Time.time > nextAttack)
-        {
-            //anim.SetTrigger("Attack");
-            currentSpeed = 0;
-            nextAttack = Time.time + attackRate;
-        }
-
         rb.position = new Vector3(rb.position.x, rb.position.y, Mathf.Clamp(rb.position.z, minHeight, maxHeight));
-    }
-
-    void Flip()
-    {
-        facingRight = !facingRight;
-
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
     }
 
 
@@ -139,12 +141,6 @@ public class Enemy : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
-    void NoSpeed()
-    {
-        currentSpeed = 0;
-    }
-
 
     void ResetSpeed()
     {
